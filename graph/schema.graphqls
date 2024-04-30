@@ -1,0 +1,27 @@
+scalar role 
+type User {
+  id: Int!
+  first_name: String!
+  last_name: String!
+  email: String!
+  phone_number: String!
+  password: String!
+  role: role!
+}
+
+input NewUser {
+  first_name: String!
+  last_name: String!
+  email: String!
+  phone_number: String!
+  password: String!
+  role: role!
+}
+
+type Query {
+  users: [User!]!
+}
+
+type Mutation {
+  CreateUser(input: NewUser!): User!
+}
