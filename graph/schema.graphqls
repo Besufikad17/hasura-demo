@@ -6,7 +6,6 @@ type User {
   email: String!
   phone_number: String!
   password: String!
-  role: role!
 }
 
 input NewUser {
@@ -15,7 +14,6 @@ input NewUser {
   email: String!
   phone_number: String!
   password: String!
-  role: role!
 }
 
 type Query {
@@ -23,5 +21,5 @@ type Query {
 }
 
 type Mutation {
-  CreateUser(input: NewUser!): User!
+  Register(input: NewUser!): User!
 }

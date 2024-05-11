@@ -7,34 +7,14 @@ package graph
 import (
 	"context"
 	"fmt"
+
 	"github.com/besufikad17/hasura-gql-demo/graph/hasura"
 	"github.com/besufikad17/hasura-gql-demo/graph/model"
 )
 
-// CreateUser is the resolver for the CreateUser field.
-func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
-	createUserInput := hasura.CreateUserArgs{
-		First_name:   input.FirstName,
-		Last_name:    input.LastName,
-		Email:        input.Email,
-		Phone_number: input.PhoneNumber,
-		Password:     input.Password,
-		Role:         hasura.Role(input.Role),
-	}
-	result, err := hasura.CreateUser(createUserInput)
-
-	if err != nil {
-		return nil, err
-	} else {
-		return &model.User{
-			FirstName:   *result.First_name,
-			LastName:    *result.Last_name,
-			Email:       *result.Email,
-			PhoneNumber: *result.Phone_number,
-			Password:    *result.Password,
-			Role:        string(result.Role),
-		}, nil
-	}
+// Register is the resolver for the Register field.
+func (r *mutationResolver) Register(ctx context.Context, input model.NewUser) (*model.User, error) {
+	panic(fmt.Errorf("not implemented: Register - Register"))
 }
 
 // Users is the resolver for the users field.
@@ -50,3 +30,32 @@ func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+
+// !!! WARNING !!!
+// The code below was going to be deleted when updating resolvers. It has been copied here so you have
+// one last chance to move it out of harms way if you want. There are two reasons this happens:
+//   - When renaming or deleting a resolver the old code will be put in here. You can safely delete
+//     it when you're done.
+//   - You have helper methods in this file. Move them out to keep these resolver files clean.
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
+	createUserInput := hasura.CreateUserArgs{
+		First_name:   input.FirstName,
+		Last_name:    input.LastName,
+		Email:        input.Email,
+		Phone_number: input.PhoneNumber,
+		Password:     input.Password,
+	}
+	result, err := hasura.CreateUser(createUserInput)
+
+	if err != nil {
+		return nil, err
+	} else {
+		return &model.User{
+			FirstName:   *result.First_name,
+			LastName:    *result.Last_name,
+			Email:       *result.Email,
+			PhoneNumber: *result.Phone_number,
+			Password:    *result.Password,
+		}, nil
+	}
+}

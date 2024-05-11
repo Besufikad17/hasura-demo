@@ -11,7 +11,6 @@ type NewUser struct {
 	Email       string `json:"email"`
 	PhoneNumber string `json:"phone_number"`
 	Password    string `json:"password"`
-	Role        string `json:"role"`
 }
 
 type Query struct {
@@ -24,5 +23,4 @@ type User struct {
 	Email       string `json:"email"`
 	PhoneNumber string `json:"phone_number"`
 	Password    string `json:"password"`
-	Role        string `json:"role"`
 }
