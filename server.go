@@ -8,7 +8,9 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/besufikad17/hasura-gql-demo/graph"
+	"github.com/go-chi/chi"
 	"github.com/joho/godotenv"
+	"github.com/rs/cors"
 )
 
 const defaultPort = "5000"
@@ -23,6 +25,14 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
+
+	router := chi.NewRouter()
+
+	router.Use(cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowCredentials: true,
+		Debug:            true,
+	}).Handler)
 
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
