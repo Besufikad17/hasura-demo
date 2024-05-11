@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"github.com/besufikad17/hasura-gql-demo/graph/utils/constants"
 	"io"
 	"net/http"
 	"os"
+
+	"github.com/besufikad17/hasura-gql-demo/graph/utils/constants"
 )
 
 func CreateUser(args CreateUserArgs) (response CreateUserOutput, err error) {
@@ -31,7 +32,7 @@ func execute(variables CreateUserArgs) (response GraphQLResponse, err error) {
 		"email":        variables.Email,
 		"phone_number": variables.Phone_number,
 		"password":     variables.Password,
-		"role":         variables.Role,
+		// "role":         variables.Role,
 	}
 	reqBody := GraphQLRequest{
 		Query:     constants.CreateUser,
